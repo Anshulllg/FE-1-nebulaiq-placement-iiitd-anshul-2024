@@ -1,0 +1,287 @@
+[
+  {
+    "service": "order-platform",
+    "client": {
+      "requests": 767,
+      "rate": "0.85 req/s",
+      "p75": "26.97 ms",
+      "p90": "1.37 s",
+      "p99": "-1.45 ms",
+      "error": "0.40%"
+    },
+    "server": {
+      "requests": 769,
+      "rate": "0.85 req/s",
+      "p75": "25.87 ms",
+      "p90": "1.37 s",
+      "p99": "1.45 s",
+      "error": "0.38%"
+    }
+  },
+  {
+    "service": "payment-gateway",
+    "client": {
+      "requests": 850,
+      "rate": "1.05 req/s",
+      "p75": "22.34 ms",
+      "p90": "1.25 s",
+      "p99": "1.55 ms",
+      "error": "0.30%"
+    },
+    "server": {
+      "requests": 855,
+      "rate": "1.05 req/s",
+      "p75": "23.45 ms",
+      "p90": "1.30 s",
+      "p99": "1.60 s",
+      "error": "0.29%"
+    }
+  },
+  {
+    "service": "user-authentication",
+    "client": {
+      "requests": 912,
+      "rate": "1.12 req/s",
+      "p75": "30.12 ms",
+      "p90": "1.50 s",
+      "p99": "1.75 ms",
+      "error": "0.45%"
+    },
+    "server": {
+      "requests": 910,
+      "rate": "1.11 req/s",
+      "p75": "31.23 ms",
+      "p90": "1.55 s",
+      "p99": "1.80 s",
+      "error": "0.42%"
+    }
+  },
+  {
+    "service": "inventory-management",
+    "client": {
+      "requests": 950,
+      "rate": "1.15 req/s",
+      "p75": "24.56 ms",
+      "p90": "1.20 s",
+      "p99": "1.20 ms",
+      "error": "0.38%"
+    },
+    "server": {
+      "requests": 945,
+      "rate": "1.14 req/s",
+      "p75": "25.67 ms",
+      "p90": "1.25 s",
+      "p99": "1.30 s",
+      "error": "0.36%"
+    }
+  },
+  {
+    "service": "shipping-service",
+    "client": {
+      "requests": 730,
+      "rate": "0.90 req/s",
+      "p75": "28.67 ms",
+      "p90": "1.40 s",
+      "p99": "1.60 ms",
+      "error": "0.33%"
+    },
+    "server": {
+      "requests": 735,
+      "rate": "0.91 req/s",
+      "p75": "29.78 ms",
+      "p90": "1.45 s",
+      "p99": "1.65 s",
+      "error": "0.31%"
+    }
+  },
+  {
+    "service": "email-notifications",
+    "client": {
+      "requests": 980,
+      "rate": "1.20 req/s",
+      "p75": "21.45 ms",
+      "p90": "1.10 s",
+      "p99": "1.30 ms",
+      "error": "0.27%"
+    },
+    "server": {
+      "requests": 985,
+      "rate": "1.21 req/s",
+      "p75": "22.56 ms",
+      "p90": "1.15 s",
+      "p99": "1.35 s",
+      "error": "0.25%"
+    }
+  },
+  {
+    "service": "analytics-service",
+    "client": {
+      "requests": 800,
+      "rate": "1.00 req/s",
+      "p75": "25.12 ms",
+      "p90": "1.35 s",
+      "p99": "1.55 ms",
+      "error": "0.35%"
+    },
+    "server": {
+      "requests": 805,
+      "rate": "1.00 req/s",
+      "p75": "26.23 ms",
+      "p90": "1.40 s",
+      "p99": "1.60 s",
+      "error": "0.32%"
+    }
+  },
+  {
+    "service": "notification-service",
+    "client": {
+      "requests": 720,
+      "rate": "0.85 req/s",
+      "p75": "27.56 ms",
+      "p90": "1.32 s",
+      "p99": "1.50 ms",
+      "error": "0.40%"
+    },
+    "server": {
+      "requests": 725,
+      "rate": "0.86 req/s",
+      "p75": "28.67 ms",
+      "p90": "1.35 s",
+      "p99": "1.55 s",
+      "error": "0.38%"
+    }
+  },
+  {
+    "service": "user-profiles",
+    "client": {
+      "requests": 830,
+      "rate": "1.05 req/s",
+      "p75": "23.45 ms",
+      "p90": "1.20 s",
+      "p99": "1.40 ms",
+      "error": "0.32%"
+    },
+    "server": {
+      "requests": 825,
+      "rate": "1.04 req/s",
+      "p75": "24.56 ms",
+      "p90": "1.25 s",
+      "p99": "1.45 s",
+      "error": "0.30%"
+    }
+  },
+  {
+    "service": "data-warehouse",
+    "client": {
+      "requests": 890,
+      "rate": "1.10 req/s",
+      "p75": "29.23 ms",
+      "p90": "1.45 s",
+      "p99": "1.65 ms",
+      "error": "0.50%"
+    },
+    "server": {
+      "requests": 895,
+      "rate": "1.11 req/s",
+      "p75": "30.34 ms",
+      "p90": "1.50 s",
+      "p99": "1.70 s",
+      "error": "0.48%"
+    }
+  },
+  {
+    "service": "file-storage",
+    "client": {
+      "requests": 910,
+      "rate": "1.12 req/s",
+      "p75": "26.34 ms",
+      "p90": "1.35 s",
+      "p99": "1.55 ms",
+      "error": "0.42%"
+    },
+    "server": {
+      "requests": 915,
+      "rate": "1.13 req/s",
+      "p75": "27.45 ms",
+      "p90": "1.40 s",
+      "p99": "1.60 s",
+      "error": "0.40%"
+    }
+  },
+  {
+    "service": "message-queue",
+    "client": {
+      "requests": 740,
+      "rate": "0.95 req/s",
+      "p75": "28.67 ms",
+      "p90": "1.45 s",
+      "p99": "1.50 ms",
+      "error": "0.37%"
+    },
+    "server": {
+      "requests": 745,
+      "rate": "0.96 req/s",
+      "p75": "29.78 ms",
+      "p90": "1.50 s",
+      "p99": "1.55 s",
+      "error": "0.35%"
+    }
+  },
+  {
+    "service": "search-engine",
+    "client": {
+      "requests": 850,
+      "rate": "1.05 req/s",
+      "p75": "24.45 ms",
+      "p90": "1.20 s",
+      "p99": "1.45 ms",
+      "error": "0.31%"
+    },
+    "server": {
+      "requests": 855,
+      "rate": "1.06 req/s",
+      "p75": "25.56 ms",
+      "p90": "1.25 s",
+      "p99": "1.50 s",
+      "error": "0.29%"
+    }
+  },
+  {
+    "service": "content-delivery",
+    "client": {
+      "requests": 780,
+      "rate": "0.98 req/s",
+      "p75": "27.89 ms",
+      "p90": "1.30 s",
+      "p99": "1.60 ms",
+      "error": "0.39%"
+    },
+    "server": {
+      "requests": 785,
+      "rate": "0.99 req/s",
+      "p75": "28.90 ms",
+      "p90": "1.35 s",
+      "p99": "1.65 s",
+      "error": "0.37%"
+    }
+  },
+  {
+    "service": "geo-location",
+    "client": {
+      "requests": 760,
+      "rate": "0.92 req/s",
+      "p75": "29.12 ms",
+      "p90": "1.40 s",
+      "p99": "1.50 ms",
+      "error": "0.36%"
+    },
+    "server": {
+      "requests": 765,
+      "rate": "0.93 req/s",
+      "p75": "30.23 ms",
+      "p90": "1.45 s",
+      "p99": "1.55 s",
+      "error": "0.34%"
+    }
+  }
+]
