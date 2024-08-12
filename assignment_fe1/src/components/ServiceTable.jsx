@@ -6,6 +6,8 @@ const ServiceTable = () => {
   const [filteredServices, setFilteredServices] = useState([]);
   const [serviceNameFilter, setServiceNameFilter] = useState('');
   const [sideFilter, setSideFilter] = useState('');
+  const [sortMetric, setSortMetric] = useState('requests'); // Default metric for sorting
+  const [sortOrder, setSortOrder] = useState('asc'); // Default order is ascending
 
   useEffect(() => {
     const fetchData = async () => {
@@ -21,6 +23,7 @@ const ServiceTable = () => {
   useEffect(() => {
     let filtered = services;
 
+    // Filter logic
     if (serviceNameFilter) {
       filtered = filtered.filter(service =>
         service.service.toLowerCase().includes(serviceNameFilter.toLowerCase())
@@ -33,15 +36,23 @@ const ServiceTable = () => {
       );
     }
 
+    // Sorting logic
+    filtered.sort((a, b) => {
+      const aValue = sideFilter === 'Server' ? a.server[sortMetric] : a.client[sortMetric];
+      const bValue = sideFilter === 'Server' ? b.server[sortMetric] : b.client[sortMetric];
+      return sortOrder === 'asc' ? aValue - bValue : bValue - aValue;
+    });
+
     setFilteredServices(filtered);
-  }, [serviceNameFilter, sideFilter, services]);
+  }, [serviceNameFilter, sideFilter, sortMetric, sortOrder, services]);
 
   return (
     <div className='poppins-regular mx-10'>
       <div className='flex justify-between items-center mb-4'>
         <h1 className='text-4xl py-4'>Service Metric</h1>
+        
         {/* Filter Inputs */}
-        <div className='flex'>
+        <div className='flex items-center'>
           <input
             type='text'
             placeholder='Filter by Service Name'
@@ -52,12 +63,31 @@ const ServiceTable = () => {
           <select
             value={sideFilter}
             onChange={(e) => setSideFilter(e.target.value)}
-            className='border p-2 rounded'
+            className='border p-2 rounded mr-4'
           >
             <option value=''>Filter by Side</option>
-            <option value='Client'>Client</option>
-            <option value='Server'>Server</option>
+            <option value='Client'>Filter by Client</option>
+            <option value='Server'>Filter by Server</option>
           </select>
+
+          <select
+            value={sortMetric}
+            onChange={(e) => setSortMetric(e.target.value)}
+            className='border p-2 rounded mr-4'
+          >
+            <option value='requests'> Sort by Requests</option>
+            <option value='rate'>Sort by Rates</option>
+            <option value='p75'>Sort by P75</option>
+            <option value='p90'>Sort by P90</option>
+            <option value='p99'>Sort by P99</option>
+            <option value='error'>Sort by Errors</option>
+          </select>
+          <button
+            onClick={() => setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc')}
+            className='border p-2 rounded'
+          >
+            {sortOrder === 'asc' ? 'Ascending' : 'Descending'}
+          </button>
         </div>
       </div>
 
