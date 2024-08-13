@@ -6,8 +6,8 @@ const ServiceTable = () => {
   const [filteredServices, setFilteredServices] = useState([]);
   const [serviceNameFilter, setServiceNameFilter] = useState('');
   const [sideFilter, setSideFilter] = useState('');
-  const [sortMetric, setSortMetric] = useState('requests'); // Default metric for sorting
-  const [sortOrder, setSortOrder] = useState('asc'); // Default order is ascending
+  const [sortMetric, setSortMetric] = useState('requests'); 
+  const [sortOrder, setSortOrder] = useState('asc'); 
 
   useEffect(() => {
     const fetchData = async () => {
@@ -51,7 +51,7 @@ const ServiceTable = () => {
       <div className='flex justify-between items-center mb-4'>
         <h1 className='text-4xl py-4'>Service Metric</h1>
         
-        {/* Filter Inputs */}
+     
         <div className='flex items-center'>
           <input
             type='text'
@@ -107,7 +107,7 @@ const ServiceTable = () => {
         <tbody>
           {filteredServices.map((service, index) => (
             <React.Fragment key={index}>
-              {/* Client metrics row */}
+             
               {(!sideFilter || sideFilter === 'Client') && (
                 <tr>
                   <td rowSpan="2" className='text-center border'>{service.service}</td>
@@ -120,7 +120,7 @@ const ServiceTable = () => {
                   <td className='text-center border'>{service.client.error}</td>
                 </tr>
               )}
-              {/* Server metrics row */}
+           
               {(!sideFilter || sideFilter === 'Server') && (
                 <tr>
                   <td className='text-center border'>Server</td>
