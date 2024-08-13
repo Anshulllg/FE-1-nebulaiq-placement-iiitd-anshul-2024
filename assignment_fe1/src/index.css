@@ -2,110 +2,131 @@
 @tailwind components;
 @tailwind utilities;
 
-body {
-  font-family: "Poppins", sans-serif;
-}
-
-.table-container {
-  width: 100%;
-  overflow-x: auto;
-  margin-bottom: 2rem;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
 
 table {
   width: 100%;
   border-collapse: collapse;
-  border-radius: 8px;
-  overflow: hidden;
-  margin: 0;
-  background-color: #fff;
-}
-
-thead {
-  background-color: #007bff;
-  color: #fff;
+  /* border-radius: 2rem; */
 }
 
 th, td {
-  padding: 12px 15px;
-  text-align: center;
-  border-bottom: 1px solid #ddd;
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
 }
 
 th {
+  background-color: #ddecff;
+}
+
+
+.centered {
+  text-align: center;
+}
+.poppins-thin {
+  font-family: "Poppins", sans-serif;
+  font-weight: 100;
+  font-style: normal;
+}
+
+.poppins-extralight {
+  font-family: "Poppins", sans-serif;
+  font-weight: 200;
+  font-style: normal;
+}
+
+.poppins-light {
+  font-family: "Poppins", sans-serif;
+  font-weight: 300;
+  font-style: normal;
+}
+
+.poppins-regular {
+  font-family: "Poppins", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.poppins-medium {
+  font-family: "Poppins", sans-serif;
+  font-weight: 500;
+  font-style: normal;
+}
+
+.poppins-semibold {
+  font-family: "Poppins", sans-serif;
   font-weight: 600;
-  font-size: 16px;
+  font-style: normal;
 }
 
-tr:nth-child(even) {
-  background-color: #f9f9f9;
+.poppins-bold {
+  font-family: "Poppins", sans-serif;
+  font-weight: 700;
+  font-style: normal;
 }
 
-tr:hover {
-  background-color: #f2b5b5;
+.poppins-extrabold {
+  font-family: "Poppins", sans-serif;
+  font-weight: 800;
+  font-style: normal;
 }
 
-/* tr td:first-child {
-  text-align: left;
-} */
-
-.button-container {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 1rem;
+.poppins-black {
+  font-family: "Poppins", sans-serif;
+  font-weight: 900;
+  font-style: normal;
 }
 
-input, select, button {
-  padding: 8px 12px;
-  border-radius: 4px;
-  border: 1px solid #ccc;
-  margin-right: 8px;
+.poppins-thin-italic {
+  font-family: "Poppins", sans-serif;
+  font-weight: 100;
+  font-style: italic;
 }
 
-input:focus, select:focus, button:focus {
-  outline: none;
-  border-color: #007bff;
+.poppins-extralight-italic {
+  font-family: "Poppins", sans-serif;
+  font-weight: 200;
+  font-style: italic;
 }
 
-button {
-  background-color: #007bff;
-  color: #fff;
-  cursor: pointer;
+.poppins-light-italic {
+  font-family: "Poppins", sans-serif;
+  font-weight: 300;
+  font-style: italic;
 }
 
-button:hover {
-  background-color: #0056b3;
+.poppins-regular-italic {
+  font-family: "Poppins", sans-serif;
+  font-weight: 400;
+  font-style: italic;
 }
 
-button:active {
-  background-color: #004099;
+.poppins-medium-italic {
+  font-family: "Poppins", sans-serif;
+  font-weight: 500;
+  font-style: italic;
 }
 
-.sort-button {
-  display: flex;
-  align-items: center;
+.poppins-semibold-italic {
+  font-family: "Poppins", sans-serif;
+  font-weight: 600;
+  font-style: italic;
 }
 
-.sort-button svg {
-  margin-left: 5px;
+.poppins-bold-italic {
+  font-family: "Poppins", sans-serif;
+  font-weight: 700;
+  font-style: italic;
 }
 
-@media (max-width: 768px) {
-  th, td {
-    padding: 8px 10px;
-    font-size: 14px;
-  }
+.poppins-extrabold-italic {
+  font-family: "Poppins", sans-serif;
+  font-weight: 800;
+  font-style: italic;
+}
 
-  .button-container {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  input, select, button {
-    margin-bottom: 8px;
-    margin-right: 0;
-    width: 100%;
-  }
+.poppins-black-italic {
+  font-family: "Poppins", sans-serif;
+  font-weight: 900;
+  font-style: italic;
 }
