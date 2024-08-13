@@ -1,33 +1,29 @@
-import React, { useEffect, useState, useMemo } from 'react';
+import React, { useEffect, useState } from 'react';
 import './../index.css';
 
 const ServiceTable = () => {
   const [services, setServices] = useState([]);
+  const [filteredServices, setFilteredServices] = useState([]);
   const [serviceNameFilter, setServiceNameFilter] = useState('');
   const [sideFilter, setSideFilter] = useState('');
-  const [sortMetric, setSortMetric] = useState('requests');
-  const [sortOrder, setSortOrder] = useState('asc');
+  const [sortMetric, setSortMetric] = useState('requests'); // Default metric for sorting
+  const [sortOrder, setSortOrder] = useState('asc'); // Default order is ascending
 
   useEffect(() => {
     const fetchData = async () => {
-      try {
-        const response = await fetch('/services.json');
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
-        }
-        const data = await response.json();
-        setServices(data);
-      } catch (error) {
-        console.error('Fetch error:', error);
-      }
+      const response = await fetch('/services.json');
+      const data = await response.json();
+      setServices(data);
+      setFilteredServices(data);
     };
 
     fetchData();
   }, []);
 
-  const filteredAndSortedServices = useMemo(() => {
+  useEffect(() => {
     let filtered = services;
 
+    // Filter logic
     if (serviceNameFilter) {
       filtered = filtered.filter(service =>
         service.service.toLowerCase().includes(serviceNameFilter.toLowerCase())
@@ -35,7 +31,9 @@ const ServiceTable = () => {
     }
 
     if (sideFilter) {
-      filtered = filtered.filter(service => service[sideFilter.toLowerCase()]);
+      filtered = filtered.filter(service =>
+        (sideFilter === 'Client' ? service.client : service.server)
+      );
     }
 
     // Sorting logic
@@ -45,96 +43,99 @@ const ServiceTable = () => {
       return sortOrder === 'asc' ? aValue - bValue : bValue - aValue;
     });
 
-    return filtered;
+    setFilteredServices(filtered);
   }, [serviceNameFilter, sideFilter, sortMetric, sortOrder, services]);
 
   return (
     <div className='poppins-regular mx-10'>
-      <h1 className='text-4xl py-4 mb-4'>Service Metrics</h1>
+      <div className='flex justify-between items-center mb-4'>
+        <h1 className='text-4xl py-4'>Service Metric</h1>
+        
+        {/* Filter Inputs */}
+        <div className='flex items-center'>
+          <input
+            type='text'
+            placeholder='Filter by Service Name'
+            value={serviceNameFilter}
+            onChange={(e) => setServiceNameFilter(e.target.value)}
+            className='border p-2 rounded mr-4'
+          />
+          <select
+            value={sideFilter}
+            onChange={(e) => setSideFilter(e.target.value)}
+            className='border p-2 rounded mr-4'
+          >
+            <option value=''>Filter by Side</option>
+            <option value='Client'>Filter by Client</option>
+            <option value='Server'>Filter by Server</option>
+          </select>
 
-      <div className='button-container'>
-        <input
-          type='text'
-          placeholder='Filter by Service Name'
-          value={serviceNameFilter}
-          onChange={(e) => setServiceNameFilter(e.target.value)}
-          className='border p-2 rounded'
-        />
-        <select
-          value={sideFilter}
-          onChange={(e) => setSideFilter(e.target.value)}
-          className='border p-2 rounded'
-        >
-          <option value=''>Filter by Client/Server</option>
-          <option value='Client'>Client</option>
-          <option value='Server'>Server</option>
-        </select>
-
-        <select
-          value={sortMetric}
-          onChange={(e) => setSortMetric(e.target.value)}
-          className='border p-2 rounded'
-        >
-          <option value='requests'>Requests</option>
-          <option value='rate'>Rates</option>
-          <option value='p75'>P75</option>
-          <option value='p90'>P90</option>
-          <option value='p99'>P99</option>
-          <option value='error'>Errors</option>
-        </select>
-        <button
-          onClick={() => setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc')}
-          className='border p-2 rounded sort-button'
-        >
-          {sortOrder === 'asc' ? 'Ascending ▲' : 'Descending ▼'}
-        </button>
+          <select
+            value={sortMetric}
+            onChange={(e) => setSortMetric(e.target.value)}
+            className='border p-2 rounded mr-4'
+          >
+            <option value='requests'> Sort by Requests</option>
+            <option value='rate'>Sort by Rates</option>
+            <option value='p75'>Sort by P75</option>
+            <option value='p90'>Sort by P90</option>
+            <option value='p99'>Sort by P99</option>
+            <option value='error'>Sort by Errors</option>
+          </select>
+          <button
+            onClick={() => setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc')}
+            className='border p-2 rounded'
+          >
+            {sortOrder === 'asc' ? 'Ascending' : 'Descending'}
+          </button>
+        </div>
       </div>
 
-      <div className="table-container">
-        <table className='w-full'>
-          <thead>
-            <tr>
-              <th>Service Name</th>
-              <th>Metric By Client/Server</th>
-              <th>Requests</th>
-              <th>Rates</th>
-              <th>P75</th>
-              <th>P90</th>
-              <th>P99</th>
-              <th>Errors</th>
-            </tr>
-          </thead>
-          <tbody>
-            {filteredAndSortedServices.map((service) => (
-              <React.Fragment key={service.service}>
-                {sideFilter !== 'Server' && (
-                  <tr>
-                    <td rowSpan={sideFilter === 'Server' ? 1 : 2} className='text-center border'>{service.service}</td>
-                    <td className='text-center border'>Client</td>
-                    <td className='text-center border'>{service.client.requests}</td>
-                    <td className='text-center border'>{service.client.rate}</td>
-                    <td className='text-center border'>{service.client.p75}</td>
-                    <td className='text-center border'>{service.client.p90}</td>
-                    <td className='text-center border'>{service.client.p99}</td>
-                    <td className='text-center border'>{service.client.error}</td>
-                  </tr>
-                )}
-                {sideFilter !== 'Client' && (
-                  <tr>
-                    <td className='text-center border'>Server</td>
-                    <td className='text-center border'>{service.server.requests}</td>
-                    <td className='text-center border'>{service.server.rate}</td>
-                    <td className='text-center border'>{service.server.p75}</td>
-                    <td className='text-center border'>{service.server.p90}</td>
-                    <td className='text-center border'>{service.server.p99}</td>
-                    <td className='text-center border'>{service.server.error}</td>
-                  </tr>
-                )}
-              </React.Fragment>
-            ))}
-          </tbody>
-        </table>
-      </div>
+      <table className='w-full border-collapse'>
+        <thead>
+          <tr className='bg-blue-200 rounded-t-md'>
+            <th className='text-center border rounded-tl-lg'>Service Name</th>
+            <th className='text-center border'>Metric By Client/Server</th>
+            <th className='text-center border'>Requests</th>
+            <th className='text-center border'>Rates</th>
+            <th className='text-center border'>P75</th>
+            <th className='text-center border'>P90</th>
+            <th className='text-center border'>P99</th>
+            <th className='text-center border rounded-tr-lg'>Errors</th>
+          </tr>
+        </thead>
+        <tbody>
+          {filteredServices.map((service, index) => (
+            <React.Fragment key={index}>
+              {/* Client metrics row */}
+              {(!sideFilter || sideFilter === 'Client') && (
+                <tr>
+                  <td rowSpan="2" className='text-center border'>{service.service}</td>
+                  <td className='text-center border'>Client</td>
+                  <td className='text-center border'>{service.client.requests}</td>
+                  <td className='text-center border'>{service.client.rate}</td>
+                  <td className='text-center border'>{service.client.p75}</td>
+                  <td className='text-center border'>{service.client.p90}</td>
+                  <td className='text-center border'>{service.client.p99}</td>
+                  <td className='text-center border'>{service.client.error}</td>
+                </tr>
+              )}
+              {/* Server metrics row */}
+              {(!sideFilter || sideFilter === 'Server') && (
+                <tr>
+                  <td className='text-center border'>Server</td>
+                  <td className='text-center border'>{service.server.requests}</td>
+                  <td className='text-center border'>{service.server.rate}</td>
+                  <td className='text-center border'>{service.server.p75}</td>
+                  <td className='text-center border'>{service.server.p90}</td>
+                  <td className='text-center border'>{service.server.p99}</td>
+                  <td className='text-center border'>{service.server.error}</td>
+                </tr>
+              )}
+            </React.Fragment>
+          ))}
+        </tbody>
+      </table>
     </div>
   );
 };
