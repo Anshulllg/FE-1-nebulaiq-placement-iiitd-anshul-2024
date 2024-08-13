@@ -6,7 +6,7 @@ const ServiceTable = () => {
   const [filteredServices, setFilteredServices] = useState([]);
   const [serviceNameFilter, setServiceNameFilter] = useState('');
   const [sideFilter, setSideFilter] = useState('');
-  const [sortMetric, setSortMetric] = useState('requests'); 
+  const [sortMetric, setSortMetric] = useState('requests');
   const [sortOrder, setSortOrder] = useState('asc'); 
 
   useEffect(() => {
@@ -23,7 +23,6 @@ const ServiceTable = () => {
   useEffect(() => {
     let filtered = services;
 
-    // Filter logic
     if (serviceNameFilter) {
       filtered = filtered.filter(service =>
         service.service.toLowerCase().includes(serviceNameFilter.toLowerCase())
@@ -40,7 +39,12 @@ const ServiceTable = () => {
     filtered.sort((a, b) => {
       const aValue = sideFilter === 'Server' ? a.server[sortMetric] : a.client[sortMetric];
       const bValue = sideFilter === 'Server' ? b.server[sortMetric] : b.client[sortMetric];
-      return sortOrder === 'asc' ? aValue - bValue : bValue - aValue;
+
+      
+      const aVal = parseFloat(aValue) || parseFloat(aValue.replace(/[^\d.-]/g, ''));
+      const bVal = parseFloat(bValue) || parseFloat(bValue.replace(/[^\d.-]/g, ''));
+
+      return sortOrder === 'asc' ? aVal - bVal : bVal - aVal;
     });
 
     setFilteredServices(filtered);
@@ -49,9 +53,9 @@ const ServiceTable = () => {
   return (
     <div className='poppins-regular mx-10'>
       <div className='flex justify-between items-center mb-4'>
-        <h1 className='text-4xl py-4'>Service Metric</h1>
+        <h1 className='text-4xl py-4'>Service Metrics</h1>
         
-     
+        {/* Filter Inputs */}
         <div className='flex items-center'>
           <input
             type='text'
@@ -66,8 +70,8 @@ const ServiceTable = () => {
             className='border p-2 rounded mr-4'
           >
             <option value=''>Filter by Side</option>
-            <option value='Client'>Filter by Client</option>
-            <option value='Server'>Filter by Server</option>
+            <option value='Client'>Client</option>
+            <option value='Server'>Server</option>
           </select>
 
           <select
@@ -75,8 +79,8 @@ const ServiceTable = () => {
             onChange={(e) => setSortMetric(e.target.value)}
             className='border p-2 rounded mr-4'
           >
-            <option value='requests'> Sort by Requests</option>
-            <option value='rate'>Sort by Rates</option>
+            <option value='requests'>Sort by Requests</option>
+            <option value='rate'>Sort by Rate</option>
             <option value='p75'>Sort by P75</option>
             <option value='p90'>Sort by P90</option>
             <option value='p99'>Sort by P99</option>
@@ -97,7 +101,7 @@ const ServiceTable = () => {
             <th className='text-center border rounded-tl-lg'>Service Name</th>
             <th className='text-center border'>Metric By Client/Server</th>
             <th className='text-center border'>Requests</th>
-            <th className='text-center border'>Rates</th>
+            <th className='text-center border'>Rate</th>
             <th className='text-center border'>P75</th>
             <th className='text-center border'>P90</th>
             <th className='text-center border'>P99</th>
@@ -107,7 +111,7 @@ const ServiceTable = () => {
         <tbody>
           {filteredServices.map((service, index) => (
             <React.Fragment key={index}>
-             
+              {/* Client metrics row */}
               {(!sideFilter || sideFilter === 'Client') && (
                 <tr>
                   <td rowSpan="2" className='text-center border'>{service.service}</td>
@@ -120,7 +124,7 @@ const ServiceTable = () => {
                   <td className='text-center border'>{service.client.error}</td>
                 </tr>
               )}
-           
+              {/* Server metrics row */}
               {(!sideFilter || sideFilter === 'Server') && (
                 <tr>
                   <td className='text-center border'>Server</td>
